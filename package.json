@@ -39,10 +39,7 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^9.8.8",
     "plop": "^4.0.1",
-    "postcss": "^8.5.3",
-    "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^10.1.5",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
   }
