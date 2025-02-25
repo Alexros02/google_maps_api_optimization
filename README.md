@@ -17,7 +17,7 @@
 
 ---
 
-## **2️⃣ Costes Originales (Sin Optimización)**
+## **Costes Originales (Sin Optimización)**
 
 ### **🔹 Google Directions API**
 - **Cada consulta de ruta cuesta 40€ por cada 1000 solicitudes**.
@@ -39,7 +39,7 @@
 
 ---
 
-## **3️⃣ Costes Optimizados con Firestore y Caché**
+## **Costes Optimizados con Firestore y Caché**
 
 ### **🔹Solo Firestore (Sin caché local)**
 - Se almacena cada ruta en Firestore después de la primera consulta a Google Directions API.
