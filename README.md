@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+# **Optimización de Costes en Google Maps**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `npm start`
+### **🔹Firestore para Almacenar Rutas**
+- Se guarda cada ruta generada en **Firestore** para evitar consultas repetidas a Google Directions API.
+- **Se reducen costos al disminuir llamadas a la API de Google**.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### **🔹Firestore + Caché Local**
+- Primero se consulta **IndexedDB o AsyncStorage** en el dispositivo del usuario.
+- Si no está en caché, se consulta **Firestore**.
+- Si no está en Firestore, se hace la solicitud a **Google Directions API**.
+- **Mejor balance entre optimización y flexibilidad**.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## **2️⃣ Costes Originales (Sin Optimización)**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### **🔹 Google Directions API**
+- **Cada consulta de ruta cuesta 40€ por cada 1000 solicitudes**.
+- Si cada post recibe **50 consultas al mes** → 100 posts → **5000 consultas al mes**.
+- **Coste total:** (5000 / 1000) × 40€ = **200€/mes**.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### **🔹 Google Maps JavaScript API**
+- **Cada carga de mapa es gratuita hasta 28,000 cargas/mes**.
+- Si superamos ese límite: **7€ por cada 1000 cargas adicionales**.
+- Con **100 usuarios activos diarios** cargando el mapa **5 veces al día**:
+  - **500 cargas/día × 30 días = 15,000 cargas/mes (dentro del límite gratuito)**.
+  - **Costo adicional: 0€ (mientras no pasemos el límite gratuito)**.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### **🔹 Google Places API** (Opcional para imágenes de lugares)
+- **Hasta 100,000 solicitudes al mes gratis**.
+- **Si superamos el límite:** 5€ por cada 1000 solicitudes adicionales.
 
-### `npm run eject`
+🔻 **Total sin optimización:** **200€/mes (solo por Google Directions API).**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## **3️⃣ Costes Optimizados con Firestore y Caché**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### **🔹Solo Firestore (Sin caché local)**
+- Se almacena cada ruta en Firestore después de la primera consulta a Google Directions API.
+- Se reducen las peticiones a Google en **80%**.
+- **Nuevo coste de Google API:** (1000 / 1000) × 40€ = **40€/mes**.
+- **Coste en Firestore:** **0.30€/mes aprox.** por lecturas de rutas.
+- 🔥 **Ahorro: 159.70€/mes**.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### **🔹 Firestore + Caché Local**
+- Se usa caché local para evitar incluso las lecturas en Firestore.
+- Solo el **10% de las consultas** van a Google API.
+- **Nuevo coste de Google API:** (500 / 1000) × 40€ = **10€/mes**.
+- **Coste en Firestore:** **0€ (gracias a la caché local)**.
+- 🔥 **Ahorro: 190€/mes**.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
