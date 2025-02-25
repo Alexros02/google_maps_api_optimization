@@ -3,8 +3,8 @@ import React from "react";
 
 const Home = () => {
     return (
-        <div className={"w-full flex justify-center m-2"}>
-            <div data-theme={"cupcake"} className="card bg-base-100 w-96 shadow-xl">
+        <div className={"w-full flex justify-center my-2 "}>
+            <div data-theme={"cupcake"} className="card bg-base-100 w-96 shadow-xl mx-2">
                 <figure>
                     <img
                         src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
