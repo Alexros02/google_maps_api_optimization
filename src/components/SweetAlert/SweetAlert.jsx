@@ -98,7 +98,7 @@ const SweetAlert = ({ title, onConfirm, type }) => {
 
     return (
         <div className="fixed bottom-4 right-4">
-            <button className="btn btn-primary rounded-full m-4 shadow-x" onClick={show}>+</button>
+            <button className="btn btn-primary rounded-full m-4 shadow-xl" onClick={show}>+</button>
         </div>
     );
 };
