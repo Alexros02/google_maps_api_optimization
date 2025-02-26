@@ -46,7 +46,7 @@ const style = document.createElement('style');
 style.textContent = customSwalStyles;
 document.head.appendChild(style);
 
-const SweetAlert = ({ title, onConfirm, type }) => {
+const SweetAlert = ({ title, onConfirm }) => {
     const show = () => {
         Swal.fire({
             title: title,
