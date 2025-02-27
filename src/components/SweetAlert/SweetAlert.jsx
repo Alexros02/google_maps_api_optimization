@@ -1,4 +1,5 @@
 import Swal from 'sweetalert2';
+import {Plus}from "lucide-react"
 
 const customSwalStyles = `
 .swal2-custom {
@@ -98,7 +99,7 @@ const SweetAlert = ({ title, onConfirm }) => {
 
     return (
         <div className="fixed bottom-4 right-4">
-            <button className="btn btn-primary rounded-full m-4 shadow-xl" onClick={show}>+</button>
+            <button className="btn btn-primary rounded-full m-4 shadow-xl  "style={{ width: '48px', height: '48px' }} onClick={show}><Plus/></button>
         </div>
     );
 };
