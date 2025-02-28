@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SweetAlert from "../SweetAlert/SweetAlert";
-import { getPosts } from "../../Services/PostsService";
+import { getPosts,deletePost } from "../../Services/PostsService";
 
 const Home = () => {
     const [locations, setLocations] = useState([]);
@@ -11,6 +11,15 @@ const Home = () => {
             setLocations(posts);
         } catch (error) {
             console.error("Error al obtener posts:", error);
+        }
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            await deletePost(id);
+            fetchPosts(); // Recarga la lista después de eliminar
+        } catch (error) {
+            console.error("Error al eliminar post:", error);
         }
     };
 
@@ -26,6 +35,7 @@ const Home = () => {
                         <div className="card-body">
                             <h2 className="card-title">{location.direccion}</h2>
                             <p><strong>Ubicación:</strong> {location.ubicacion.lat}, {location.ubicacion.lng}</p>
+                            <button className="btn btn-error " onClick={() => handleDelete(location.id)}>Eliminar</button>
                         </div>
                     </div>
                 ))}

@@ -1,5 +1,5 @@
 import { db } from "../firebaseConfig";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
 
 const postsCollection = collection(db, "posts");
 
@@ -19,5 +19,15 @@ export const getPosts = async () => {
     } catch (error) {
         console.error("Error al obtener posts:", error);
         return [];
+    }
+};
+
+export const deletePost = async (id) => {
+    try {
+        const postDoc = doc(db, "posts", id);
+        await deleteDoc(postDoc);
+        console.log("Post eliminado con ID:", id);
+    } catch (error) {
+        console.error("Error al eliminar post:", error);
     }
 };
